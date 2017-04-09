@@ -11,7 +11,9 @@ function makeRegex(rep) {
 // Call text.replace on each regex in replacements.
 function performReplacements(text, replacements) {
     for (var i = 0; i < replacements.length; i++) {
-        text = text.replace(makeRegex(replacements[i]), replacements[i].to);
+        var alternatives = replacements[i].to.split("|");
+        text = text.replace(makeRegex(replacements[i]),
+                            alternatives[Math.floor(Math.random()*alternatives.length)]);
     }
     return text;
 }
