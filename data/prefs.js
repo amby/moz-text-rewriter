@@ -36,10 +36,13 @@ function appendRow(data) {
         case_box = makeTD("checkbox", null, data.ic),
         whole_box = makeTD("checkbox", null, data.mw),
         moveup = makeSpan('moveup', '▲'),
+        movetop = makeSpan('movetop', 'T'),
         delrow = makeSpan('delrow', '☓');
     moveup.style.float = 'right';
+    movetop.style.float = 'right';
     delrow.style.float = 'right';
     whole_box.appendChild(delrow);
+    whole_box.appendChild(movetop);
     whole_box.appendChild(moveup);
     tr.appendChild(phrase);
     tr.appendChild(replace);
@@ -47,6 +50,7 @@ function appendRow(data) {
     tr.appendChild(whole_box);
     table.appendChild(tr);
     attachDelRowListener(tr.querySelector(".delrow"));
+    attachMoveTopListener(tr.querySelector(".movetop"));
     attachMoveUpListener(tr.querySelector(".moveup"));
 }
 
@@ -75,6 +79,20 @@ function attachMoveUpListener(itm) {
             if (thisRow.rowIndex > 1) {
                 var prevRow = thisRow.previousSibling;
                 swapRows(prevRow, thisRow);
+            }
+        });
+    })(itm);
+}
+
+// Listen on clicking T button for a row.
+function attachMoveTopListener(itm) {
+    (function(e) {
+        e.addEventListener('click', function() {
+            // can't move top element up
+            var thisRow = e.parentNode.parentNode;
+            if (thisRow.rowIndex > 1) {
+                var topRow = thisRow.parentNode.childNodes[2];
+                swapRows(topRow, thisRow);
             }
         });
     })(itm);
