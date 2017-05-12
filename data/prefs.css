@@ -85,7 +85,7 @@ td, th {
   td:nth-of-type(3):before { content: "Ignore case"; }
   td:nth-of-type(4):before { content: "Match word"; }
 
-  .moveup, .delrow {
+  .moveup, .movetop, .delrow {
     letter-spacing: 25px;
     font-size: 140%;
   }
